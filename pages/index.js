@@ -2,16 +2,9 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import axios from 'axios';
 import React from 'react';
+import env from 'dotenv';
 
-async function getData() {
-  try {
-    const data = await axios.get("http://localhost:3010/")
-    return data
-  } catch (error) {
-    console.log(error)
-    throw error
-  }
-}
+const baseApiUrl = process.env.GROOVE_API
 
 export default function Home() {
   const [codes, setCodes] = React.useState([]);
@@ -19,7 +12,7 @@ export default function Home() {
 
   React.useEffect( () => {
     
-    axios.get("http://localhost:3010/")
+    axios.get(baseApiUrl)
     .then(data => {
       console.log(data.data)
       setCodes(data.data)
