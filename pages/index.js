@@ -8,6 +8,7 @@ const baseApiUrl = process.env.NEXT_PUBLIC_GROOVE_API
 export default function Home() {
   const [codes, setCodes] = React.useState([]);
   const [isDataFetched, setIsDataFetched] = React.useState(false)
+  
 
   React.useEffect( () => {
     console.log(baseApiUrl)
