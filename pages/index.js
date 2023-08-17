@@ -2,9 +2,8 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import axios from 'axios';
 import React from 'react';
-import env from 'dotenv';
 
-const baseApiUrl = process.env.GROOVE_API
+const baseApiUrl = process.env.REACT_APP_GROOVE_API
 
 export default function Home() {
   const [codes, setCodes] = React.useState([]);
