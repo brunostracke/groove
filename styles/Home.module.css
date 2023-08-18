@@ -3,8 +3,13 @@
   padding: 0 0.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  vertical-align: top;
+}
+
+.tableContainer {
+  position: relative;
+  width: 40vh;
 }
 
 .title a {

@@ -13,7 +13,7 @@ export default function Codes() {
   const router = useRouter();
 
   const collumns = [
-    { field: "code", headerName: "CÓDIGO", width: 120 },
+    { field: "code", headerName: "CÓDIGO", width: 180 },
     { field: "quantity", headerName: "QUANTIDADE", width: 150 },
   ];
 
@@ -30,21 +30,23 @@ export default function Codes() {
   }
 
   return (
-    <div>
-      <div className={styles.container}>
+    <div className={styles.container}>
+      <div className={styles.tableContainer}>
         {isDataFetched && (
           <DataGrid
             columns={collumns}
             rows={codes}
-            hideFooterPagination
-            autoHeight
+            hideFooter
+            style={{ maxHeight: 500 }}
             loading={!isDataFetched}
           />
         )}
       </div>
-      <Button variant="contained" onClick={handleReturn}>
-        VOLTAR
-      </Button>
+      <div style={{ paddingTop: 10 }}>
+        <Button variant="contained" onClick={handleReturn}>
+          VOLTAR
+        </Button>
+      </div>
     </div>
   );
 }
