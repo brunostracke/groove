@@ -2,7 +2,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+  font-family: Roboto, Inter, -apple-system, BlinkMacSystemFont, Segoe UI,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
@@ -23,6 +23,7 @@ img {
 h1,
 h2,
 p,
+span,
 ul {
   margin: 0;
 }

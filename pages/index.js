@@ -3,6 +3,10 @@ import axios from "axios";
 import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { useRouter } from "next/router";
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 const baseApiUrl = process.env.NEXT_PUBLIC_GROOVE_API;
 

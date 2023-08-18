@@ -9,6 +9,7 @@ import {
   CircularProgress,
   FormControlLabel,
   Switch,
+  Typography,
 } from "@mui/material";
 
 const baseApiUrl = process.env.NEXT_PUBLIC_GROOVE_API;
@@ -17,18 +18,18 @@ export default function Codes() {
   const [isDataFetched, setIsDataFetched] = React.useState(false);
   const [isFilterBirthdayActive, setIsFilterBirthdayActive] =
     React.useState(false);
-  const [codes, setCodes] = React.useState();
+  const [fetchedData, setFetchedData] = React.useState();
   const router = useRouter();
 
   const collumns = [
-    { field: "code", headerName: "CÓDIGO", width: 180 },
+    { field: "id", headerName: "CÓDIGO", width: 180 },
     { field: "quantity", headerName: "QUANTIDADE", width: 150 },
   ];
 
   React.useEffect(() => {
     const id = sessionStorage.getItem("eventId");
     axios.get(`${baseApiUrl}/participants/codes/${id}`).then((data) => {
-      setCodes(data.data);
+      setFetchedData(data.data);
       setIsDataFetched(true);
     });
   }, []);
@@ -43,26 +44,46 @@ export default function Codes() {
 
   function getCodes() {
     return isFilterBirthdayActive
-      ? codes.filter((code) => !code.code.toLowerCase().includes("aniver"))
-      : codes;
+      ? fetchedData.codesQuantity.filter(
+          (code) => !code.id.toLowerCase().includes("aniver")
+        )
+      : fetchedData.codesQuantity;
   }
 
   return (
     <div className={styles.container}>
       {isDataFetched ? (
-        <div className={styles.tableContainer}>
-          <DataGrid
-            columns={collumns}
-            rows={getCodes()}
-            hideFooter
-            style={{ maxHeight: 500 }}
-            loading={!isDataFetched}
-          />
-          <div>
-            <FormControlLabel
-              control={<Switch onChange={handleSwitchChange} />}
-              label="Filtrar anivers"
-            ></FormControlLabel>
+        <div>
+          <Typography variant="button" gutterBottom>
+            Quantidade de Ingressos: {fetchedData.count}
+          </Typography>
+          <br />
+          <Typography variant="button" gutterBottom>
+            Valor total:: R$ {fetchedData.revenue}
+          </Typography>
+          <br />
+          <Typography variant="button" gutterBottom>
+            Valor líquido: R$ {fetchedData.liquidRevenue}
+          </Typography>
+          <br />
+          <Typography variant="button" gutterBottom>
+            Ticket médio: R${" "}
+            {(fetchedData.liquidRevenue / fetchedData.count).toFixed(2)}
+          </Typography>
+          <div className={styles.tableContainer}>
+            <DataGrid
+              columns={collumns}
+              rows={getCodes()}
+              hideFooter
+              style={{ maxHeight: 380 }}
+              loading={!isDataFetched}
+            />
+            <div>
+              <FormControlLabel
+                control={<Switch onChange={handleSwitchChange} />}
+                label="Filtrar anivers"
+              ></FormControlLabel>
+            </div>
           </div>
         </div>
       ) : (
