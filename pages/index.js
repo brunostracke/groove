@@ -17,8 +17,8 @@ export default function Home() {
   ];
 
   function handleEventClick(e) {
-    router.push({ pathname: "/codes", query: { id: e.id } });
-    console.log(e);
+    sessionStorage.setItem("eventId", e.id)
+    router.push({ pathname: "/codes"});
   }
 
   React.useEffect(() => {
