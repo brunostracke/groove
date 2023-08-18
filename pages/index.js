@@ -2,31 +2,37 @@ import styles from "../styles/Home.module.css";
 import axios from "axios";
 import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import {useRouter} from 'next/router'
 
 const baseApiUrl = process.env.NEXT_PUBLIC_GROOVE_API;
 
 export default function Home() {
-  const [codes, setCodes] = React.useState([]);
   const [isDataFetched, setIsDataFetched] = React.useState(false);
+  const [events, setEvents] = React.useState([])
+  const router = useRouter()
 
   const collumns = [
-    { field: "code", headerName: "CODE" },
-    { field: "quantity", headerName: "QUANTIDADE" },
+    { field: "date", headerName: "DATA", width: 120},
+    { field: "name", headerName: "NOME DO EVENTO", width: 150},
   ];
 
+  function handleEventClick(e) {
+    router.push({pathname: "/codes", query: {id: e.id}})
+    console.log(e)
+  }
+
   React.useEffect(() => {
-    axios.get(baseApiUrl).then((data) => {
-      setCodes(data.data);
+    axios.get(`${baseApiUrl}/events`).then((data) => {
+      setEvents(data.data);
       setIsDataFetched(true);
     });
   }, []);
 
-  if (codes.length === 0) return <div>Loading...</div>;
 
   return (
     <div className={styles.container}>
       {isDataFetched && (
-        <DataGrid columns={collumns} rows={codes} hideFooterPagination autoHeight />
+        <DataGrid columns={collumns} rows={events} hideFooterPagination autoHeight onRowClick={handleEventClick} loading={!isDataFetched} />
       )}
     </div>
   );
