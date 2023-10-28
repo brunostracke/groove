@@ -45,7 +45,7 @@ export default function Codes() {
   function getCodes() {
     return isFilterBirthdayActive
       ? fetchedData.codesQuantity.filter(
-          (code) => !code.id.toLowerCase().includes("aniver")
+          (code) => !code.id.toLowerCase().includes("aniver") || !codes.id.toLowerCase().includes("free")
         )
       : fetchedData.codesQuantity;
   }
